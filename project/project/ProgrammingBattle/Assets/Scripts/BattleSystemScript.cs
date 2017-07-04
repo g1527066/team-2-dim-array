@@ -54,8 +54,10 @@ public class BattleSystemScript : MonoBehaviour {
         battleState = BattleState.ChooseWord;
         enemyManagement = new EnemyManagement(enemyList);
         textManagement = new TextManagement();
-        string[] aaa = new string[]{ "aaA" };
-        textManagement.SelectedTechnique(aaa,aaa[0],0,battleState);
+        //いったん
+        string[] aaa = new string[]{ "わざ１", "わざ2", "わざ3" };
+        textManagement.SelectedTechnique(aaa,"技の説明ですね",0,battleState);
+        //////////////
         enemyManagement.GenerationEnemy();//敵を生成します
 
         player = GameObject.FindWithTag("Player");
