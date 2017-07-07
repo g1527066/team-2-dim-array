@@ -30,16 +30,17 @@ public class PlayerScript : MonoBehaviour {
         Debug.Log(hp);
     }
 
-    public void SetEnemy(string enemyName)//攻撃対象を選択したときにオブジェクトにセットします
+    public void SetEnemy(GameObject enemyName)//攻撃対象を選択したときにオブジェクトにセットします
     {
-        attackTarget = GameObject.Find(enemyName);
+        attackTarget =enemyName;
+        Debug.Log("セットされました");
         // gameObject.GetComponent<EnemyScript>();
        // attackTarget = GameObject.FindWithTag(enemyName);
     }
 
     public void Attack()//敵に攻撃したとき
     {
-        attackTarget.GetComponent<EnemyScript>().Attacked(attack);
+        attackTarget.GetComponent<Enemy>().Attacked(attack);
     }
 
 }

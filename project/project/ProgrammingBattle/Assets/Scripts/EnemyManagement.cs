@@ -8,10 +8,6 @@ using UnityEngine;
 
 public class EnemyManagement
 {
-
-     GameObject karienemy;
-
-
     int battleEncounterCount;//今が何回目のバトルか
     List<GameObject> enemy = new List<GameObject>();//ここに今いる敵を格納します
     public List<GameObject> Enemy
@@ -23,44 +19,57 @@ public class EnemyManagement
      Vector3[] enemyPosition = new Vector3[5] {new Vector3(-2,2.5f,0), new Vector3(0, 2.5f, 0), new Vector3(2, 2.5f, 0), new Vector3(4, 2.5f, 0), new Vector3(6, 2.5f, 0) };
 
 
-    public EnemyManagement(List<GameObject> copyEnemy)
+    public EnemyManagement()
     {
-        karienemy = copyEnemy[0];
         battleEncounterCount = 0;
     }
 
     //敵オブジェクトを生成します
     GameObject Generation(GameObject prefab,Vector3 position)
     {
-        GameObject bullet = GameObject.Instantiate(prefab) as GameObject;
-        bullet.transform.localPosition = position;
-        return bullet;
+        GameObject ob = GameObject.Instantiate(prefab) as GameObject;
+        ob.transform.localPosition = position;
+        return ob;
     }
 
     //次のマップに移動した際に敵を新しく生成します
-    public void GenerationEnemy()
+    private void GenerationEnemy()
     {
         //すべてのデータ消したから
          enemy.Clear();
 
         //生成,リストに追加
-        switch (1)//いったん
+        switch (battleEncounterCount)//いったん適当に生成しています。
         {
             case 1:
-                enemy.Add(Generation(karienemy,enemyPosition[2]));
-                enemy.Add(Generation(karienemy, enemyPosition[3]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[2]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[3]));
+                Debug.Log("エネミーの数"+enemy.Count);
+
                 break;
 
             case 2:
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[1]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[3]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[4]));
                 break;
 
             case 3:
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[2]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[0]));
+
                 break;
 
             case 4:
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[0]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[4]));
+
                 break;
 
             case 5:
+
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[2]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[3]));
                 break;
 
 
@@ -68,10 +77,22 @@ public class EnemyManagement
     }
 
     //死んだ敵をリストから抹消します
-    public void DeleteEnemy()
+    public void DeleteEnemy(GameObject deleteObject)
     {
-
+        enemy.Remove(deleteObject);
+        
     }
+
+    //敵が全て死んでいたらあたらしい敵をを生成します
+    public void AllDeadEnemy()
+    {
+        if (enemy.Count == 0)
+        {
+            battleEncounterCount++;
+            GenerationEnemy();
+        }
+    }
+
 
     //++で増えた敵をリストに追加
     public void AddEnemy()
@@ -79,6 +100,16 @@ public class EnemyManagement
 
     }
 
-
+    //テキスト用に敵名一覧渡す
+    public string[] EnemyArray()
+    {
+        string[] enemyString = new string[enemy.Count];
+        for(int i=0;i<enemy.Count;i++)
+        {
+           Enemy e  = enemy[i].GetComponent<Enemy>();
+            enemyString[i] = e.EnemyName;
+        }
+        return enemyString;
+    }
 
 }
