@@ -51,6 +51,7 @@ public class BattleSystemScript : MonoBehaviour
 
     TextManagement textManagement;//文字生成管理
     TechniqueManagement techniqueManagement;//技管理
+    IntervalManagement intervalManagement;//間管理
 
     //  private string phase = "ChooseEnemy";
     private string StringBox;
@@ -67,11 +68,12 @@ public class BattleSystemScript : MonoBehaviour
     void Start()
     {
 
-        battleState = BattleState.ChooseWord;
+        // battleState = BattleState.ChooseWord;
+        battleState = BattleState.Interval;
         enemyManagement = new EnemyManagement();
         textManagement = new TextManagement();
         techniqueManagement = new TechniqueManagement();
-
+        intervalManagement = new IntervalManagement();
         //テキスト表示生成
         textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(), techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState,"");
 
@@ -91,13 +93,13 @@ public class BattleSystemScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        enemyManagement.AllDeadEnemy();//敵がすべて死んでいたら生成します
-        if (BattleStartScript.BattleStart)
+      if (BattleStartScript.BattleStart)
         {
             switch (battleState)//それぞれのフェーズへ
             {
 
                 case BattleState.ChooseWord:
+                    enemyManagement.AllDeadEnemy();//敵がすべて死んでいたら生成します
                     ChooseWord();
                     break;
                 case BattleState.ChooseEnemy:
@@ -105,6 +107,9 @@ public class BattleSystemScript : MonoBehaviour
                     break;
                 case BattleState.InputText:
                     InputText();
+                    break;
+                case BattleState.Interval:
+                    ChooseInterval();
                     break;
             }
         }
@@ -332,7 +337,21 @@ public class BattleSystemScript : MonoBehaviour
             //一度選択したテキストを再抽選
             wordText[wordNum].text = wordList[UnityEngine.Random.Range(0, wordList.Length)];
             //もう一度技選択フェーズへ
+            if (enemyManagement.Enemy.Count == 0)
+                battleState = BattleState.Interval;
+            else
             battleState = BattleState.ChooseWord;
+
         }
     }
+
+    //アイテム取得などの途中です
+    private void ChooseInterval()
+    {
+        intervalManagement.UpdateInterval(enemyManagement.BattleEncounterCount);
+        if (intervalManagement.EndClick == true)
+            battleState = BattleState.ChooseWord;
+
+    }
+
 }

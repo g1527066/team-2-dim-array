@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
         attackTarget = GameObject.FindWithTag("Player");
 
         //すべて適当です
-        hp = 3;
+        hp = 1;
         attack = 3;
         attackInterval = 7f;
         elapsedTime = 0f;

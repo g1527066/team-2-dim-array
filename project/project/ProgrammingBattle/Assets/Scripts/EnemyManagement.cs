@@ -9,6 +9,11 @@ using UnityEngine;
 public class EnemyManagement
 {
     int battleEncounterCount;//今が何回目のバトルか
+    public int BattleEncounterCount
+    {
+        get { return battleEncounterCount; }
+    }
+
     List<GameObject> enemy = new List<GameObject>();//ここに今いる敵を格納します
     public List<GameObject> Enemy
     {
