@@ -38,6 +38,10 @@ public class EnemyManagement
         //すべてのデータ消したから
          enemy.Clear();
 
+        //ここですべて死んでいたらシーン移動します/知識不足でこんな場所に入れてます
+        if (battleEncounterCount > 5)
+            Application.LoadLevel("ResultScene");
+
         //生成,リストに追加
         switch (battleEncounterCount)//いったん適当に生成しています。
         {

@@ -50,6 +50,7 @@ public class BattleSystemScript : MonoBehaviour
     BattleState battleState;
 
     TextManagement textManagement;//文字生成管理
+    TechniqueManagement techniqueManagement;//技管理
 
     //  private string phase = "ChooseEnemy";
     private string StringBox;
@@ -69,11 +70,10 @@ public class BattleSystemScript : MonoBehaviour
         battleState = BattleState.ChooseWord;
         enemyManagement = new EnemyManagement();
         textManagement = new TextManagement();
-        //いったん
-        string[] aaa = new string[] { "わざ１", "わざ2", "わざ3" };
-        textManagement.SelectedTechnique(enemyManagement.EnemyArray(), aaa, "技の説明ですね", 0,0, battleState);
-        //////////////
+        techniqueManagement = new TechniqueManagement();
 
+        //テキスト表示生成
+        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(), techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState,"");
 
         player = GameObject.FindWithTag("Player");
         int i = 0;
@@ -108,9 +108,8 @@ public class BattleSystemScript : MonoBehaviour
                     break;
             }
         }
-        //いったん
-        string[] aaa = new string[] { "わざ１", "わざ2", "わざ3" };
-        textManagement.SelectedTechnique(aaa, enemyManagement.EnemyArray(), "技の説明ですね", wordNum, oldSelectNumber, battleState);
+     
+        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(),techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState, textBox[1].text);
         //////////////
 
 
@@ -245,8 +244,7 @@ public class BattleSystemScript : MonoBehaviour
                 case KeyCode.Alpha1://技１
                     if (wordNum != 0)//前回と同じ入力じゃな無ければ
                         onePush = false;
-                    wordWindow[0].color = ChooseColor;  //選択したウィンドウの色を変える
-                    StringBox = wordText[0].text;       //フキダシに表示する用にテキストを保存
+                    StringBox = techniqueManagement.SelectTechniqueName(0);
                     if (onePush == true && wordNum == 0)
                     {
                         onePush = false;
@@ -264,15 +262,13 @@ public class BattleSystemScript : MonoBehaviour
                         battleState++;
                     }
                     onePush = true;
-                    wordWindow[1].color = ChooseColor;
-                    StringBox = wordText[1].text;
+                    StringBox = techniqueManagement.SelectTechniqueName(1);
                     wordNum = 1;
                     break;
                 case KeyCode.Alpha3://技３
                     if (wordNum != 2)//前回と同じ入力じゃな無ければ
                         onePush = false;
-                    wordWindow[2].color = ChooseColor;
-                    StringBox = wordText[2].text;
+                    StringBox = techniqueManagement.SelectTechniqueName(2);
                     wordNum = 2;
                     if (onePush == true && wordNum == 2)
                     {
@@ -317,6 +313,8 @@ public class BattleSystemScript : MonoBehaviour
             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
             player.GetComponent<PlayerScript>().Attack();
 
+            //使い終わった技はリストから削除
+            techniqueManagement.DeleteTechnique(wordNum);
 
             int i = 0;
             while (i < 3)

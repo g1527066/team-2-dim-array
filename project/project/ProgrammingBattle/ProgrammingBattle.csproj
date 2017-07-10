@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\RayScript.cs" />
     <Compile Include="Assets\Scripts\SingletonMonoBehaviour.cs" />
     <Compile Include="Assets\Scripts\SoundPlayerScript.cs" />
+    <Compile Include="Assets\Scripts\TechniqueManagement.cs" />
     <Compile Include="Assets\Scripts\TextManagement.cs" />
     <Compile Include="Assets\Scripts\TitleSystemScript.cs" />
   </ItemGroup>

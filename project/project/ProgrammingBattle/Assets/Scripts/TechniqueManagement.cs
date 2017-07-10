@@ -5,8 +5,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts
-{
+
     //技をテトリス方式でやります
     //効率割るそうですが直せなかったですすみません、、、、
 
@@ -25,18 +24,29 @@ namespace Assets.Scripts
 
         }
 
-        s_Technique plus = new s_Technique("hp+=10", "体力に10を足す");//+=は変数名に入れれないので
-        s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
-        s_Technique loop = new s_Technique("while(true)", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
-        s_Technique enemyUsing = new s_Technique("using enemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
-        s_Technique small = new s_Technique("enemy-=10", "敵のHPから10引く");
-        s_Technique division = new s_Technique("enemy/=2", "敵のHPを半分に割る");
-        s_Technique constant = new s_Technique("const int", "敵に定数ダメージを与える");
-        s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
-        s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
-        s_Technique release = new s_Technique("public", "全て公開する");
+    //s_Technique plus = new s_Technique("hp+=10", "体力に10を足す");//+=は変数名に入れれないので
+    //s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
+    //s_Technique loop = new s_Technique("while(true)", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
+    //s_Technique enemyUsing = new s_Technique("using enemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
+    //s_Technique small = new s_Technique("enemy-=10", "敵のHPから10引く");
+    //s_Technique division = new s_Technique("enemy/=2", "敵のHPを半分に割る");
+    //s_Technique constant = new s_Technique("const int", "敵に定数ダメージを与える");
+    //s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
+    //s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
+    //s_Technique release = new s_Technique("public", "全て公開する");
 
-        const int techniquNumber = 10;
+    s_Technique plus = new s_Technique("hp10", "体力に10を足す");//+=は変数名に入れれないので
+    s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
+    s_Technique loop = new s_Technique("whiletrue", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
+    s_Technique enemyUsing = new s_Technique("usingenemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
+    s_Technique small = new s_Technique("enemy10", "敵のHPから10引く");
+    s_Technique division = new s_Technique("enemy2", "敵のHPを半分に割る");
+    s_Technique constant = new s_Technique("constint", "敵に定数ダメージを与える");
+    s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
+    s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
+    s_Technique release = new s_Technique("public", "全て公開する");
+
+    const int techniquNumber = 10;
 
         // List<int> techniqueArray = new List<int>();
         List<s_Technique> techniqueArray = new List<s_Technique>();
@@ -44,6 +54,7 @@ namespace Assets.Scripts
         public TechniqueManagement()
         {
             UnityEngine.Random.seed = System.Environment.TickCount;
+        RandomCreate();
         }
 
         //配列をシャッフルしなおす
@@ -110,7 +121,7 @@ namespace Assets.Scripts
         }
 
 
-        //最初の三個の配列を返す
+        //最初の三個の配列を返す//２以下のバージョン書く
         public string[] techniquString
         {
             get
@@ -122,15 +133,22 @@ namespace Assets.Scripts
 
 
         //選ばれている技の説明を返す
-        //public string selectTechniqueDescription(int number)
-        //{
-           
-        //       // return techniqueArray[number];
-            
+        public string SelectTechniqueDescription(int number)
+        {
+            return techniqueArray[number].techniqueDescription;
+        }
 
-        //}
+    //選ばれている技をかえす
+    public string SelectTechniqueName(int number)
+    {
+        return techniqueArray[number].techniqueName;
+    }
 
+    //使い終わったものは削除
+    public void DeleteTechnique(int number)
+    {
+        techniqueArray.RemoveAt(number);
+    }
 
 
     }
-}

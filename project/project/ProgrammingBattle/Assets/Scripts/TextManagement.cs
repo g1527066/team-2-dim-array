@@ -45,8 +45,8 @@ public class TextManagement
         //chooseEnemyの文字生成
         enemyObject.Add(Generation(text, new Vector3(450 - Canvas.transform.position.x, -600 + Canvas.transform.position.y, 0), 22, chooseEnemy, Color.clear));
         //入力文字、答生成
-        inputTechnique = Generation(text, new Vector3(500 - Canvas.transform.position.x, -525 + Canvas.transform.position.y, 0), 27, "input", Color.clear);
-        inputAnswer = Generation(text, new Vector3(520 - Canvas.transform.position.x, -525 + Canvas.transform.position.y, 0), 27, "in", Color.red);
+        inputTechnique = Generation(text, new Vector3(520 - Canvas.transform.position.x, -525 + Canvas.transform.position.y, 0), 27, "input", Color.clear);
+        inputAnswer = Generation(text, new Vector3(520 - Canvas.transform.position.x, -525 + Canvas.transform.position.y, 0), 27, "", Color.red);
         //技も基本３つなので生成しとく、二つ以下になったらcolorで見えなくする
         int interval = -40;
         techniqueObject.Add(Generation(text, new Vector3(150 - Canvas.transform.position.x, -630 + Canvas.transform.position.y, 0), 22, "技の名前1", Color.clear));
@@ -78,9 +78,8 @@ public class TextManagement
 
 
     //技のリスト選択項目を受け取って表示
-    public void SelectedTechnique(string[] TechniqueName, string[] enemyName, string selectDescription, int techniqueSelect,int enemySelect, BattleSystemScript.BattleState nowState)
+    public void SelectedTechnique(string[] TechniqueName, string[] enemyName, string selectDescription, int techniqueSelect,int enemySelect, BattleSystemScript.BattleState nowState,string answerString)
     {
-        selectDescription = "お試し\n技の説明のつもりです";//後で消す,改行が入らないな、、、
         switch (nowState)
         {
             case BattleSystemScript.BattleState.ChooseWord:
@@ -150,7 +149,7 @@ public class TextManagement
                     //入力する文字を表示する
                     txt = inputTechnique.GetComponent<Text>();
                     txt.color = Color.black;
-                    txt.text = "入力　後で変えようね";
+                    txt.text = answerString;
                     //敵選択文字色
                     txt = enemyObject[0].GetComponent<Text>();
                     txt.color = Color.black;
@@ -160,7 +159,6 @@ public class TextManagement
                 //敵文字の色、内容変更
                 for (int i = 1; i < enemyObject.Count; i++)
                 {
-
                     txt = enemyObject[i].GetComponent<Text>();//いったんわざを入れていく、後で直すその２
                     if (enemyName.Length >= i)//敵存在番号まで表示文字代入
                         txt.text = enemyName[i - 1];
@@ -173,8 +171,7 @@ public class TextManagement
                     }
                     else
                     {
-                        txt.color = Color.clear;
-                        Debug.Log(" i="+i);
+                        txt.color = Color.clear;//毎回変えるの無駄
                     }
                 }
                 break;
@@ -187,16 +184,12 @@ public class TextManagement
                     txt.text = TechniqueName[techniqueSelect];
                     txt = inputAnswer.GetComponent<Text>();
                     txt.color = Color.red;
-                    oldState = nowState;
+                    txt.text = "";
+                   oldState = nowState;
                 }
-
                 txt = inputAnswer.GetComponent<Text>();
-                txt.text = "後で入れようね　答え入力中";
-
-
-
+                txt.text = answerString;
                 break;
-
         }
 
     }
