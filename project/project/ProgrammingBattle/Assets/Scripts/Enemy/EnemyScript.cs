@@ -26,7 +26,7 @@ public class EnemyScript : MonoBehaviour
         attackTarget = GameObject.FindWithTag("Player");
 
         //田中：タイムメーターの秒針です
-        secondHand = this.transform.FindChild("timer/pivot");
+        secondHand = this.transform.Find("timer/pivot");
         angle = 360 / attackInterval;
     }
 

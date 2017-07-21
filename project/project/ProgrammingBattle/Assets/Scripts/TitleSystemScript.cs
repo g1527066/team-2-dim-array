@@ -12,6 +12,8 @@ public class TitleSystemScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        SoundPlayerScript.bgmFlag_TitleBgm = true;
+
         //背景用ゲームオブジェクト
         GameObject background = new GameObject("Background");
         Transform bgT = background.transform;
@@ -64,6 +66,7 @@ public class TitleSystemScript : MonoBehaviour {
     void Update () {
         if(RayScript.getObj(mainCamera) == "StartButton" && Input.GetMouseButtonDown(0))
         {
+            SoundPlayerScript.seFlag_Choose = true;
             LoadingScript.nextScene = "MainScene";
             SceneManager.LoadScene("LoadingScene");
         }

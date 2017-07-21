@@ -75,7 +75,7 @@ public class BattleSystemScript : MonoBehaviour
         techniqueManagement = new TechniqueManagement();
         intervalManagement = new IntervalManagement();
         //テキスト表示生成
-        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(), techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState,"");
+        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(), techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState, "");
 
         player = GameObject.FindWithTag("Player");
         int i = 0;
@@ -93,7 +93,7 @@ public class BattleSystemScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if (BattleStartScript.BattleStart)
+        if (BattleStartScript.BattleStart)
         {
             switch (battleState)//それぞれのフェーズへ
             {
@@ -113,8 +113,8 @@ public class BattleSystemScript : MonoBehaviour
                     break;
             }
         }
-     
-        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(),techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState, textBox[1].text);
+
+        textManagement.SelectedTechnique(techniqueManagement.techniquString, enemyManagement.EnemyArray(), techniqueManagement.SelectTechniqueDescription(wordNum), wordNum, oldSelectNumber, battleState, textBox[1].text);
         //////////////
 
 
@@ -122,43 +122,36 @@ public class BattleSystemScript : MonoBehaviour
 
     //入力チェック関数
     //入力したものをキーコードで返す
-    private KeyCode KeyCheck()
+    private String KeyCheck()
     {
-        if (Input.anyKeyDown)
-        {
-            foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
-            {
-                if (Input.GetKeyDown(code)) return code;
-            }
-        }
-        return KeyCode.None;
+        return Input.inputString;
     }
 
     //敵選択フェーズ
     private void ChooseEnemy()
     {
-        KeyCode inputNumber = KeyCheck();
+        String inputNumber = KeyCheck();
 
         if (Input.anyKeyDown)
         {
             switch (inputNumber)
             {
-                case KeyCode.Alpha1://敵１
+                case "1"://敵１
                     if (oldSelectNumber != 0)//色を元に戻す
                     {
                         enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                         onePush = false;
                     }
-                        oldSelectNumber = 0;
+                    oldSelectNumber = 0;
                     enemyWindow[0].color = ChooseColor; //選択したウィンドウの色を変える
                     enemy[0].color = ChooseColor;       //敵の色を変える
                     enemyManagement.Enemy[0].GetComponent<Enemy>().ChangeColor(true);
-                      if (oldSelectNumber == 0 && onePush == true)
-                    battleState++;            //次のフェーズへ
+                    if (oldSelectNumber == 0 && onePush == true)
+                        battleState++;            //次のフェーズへ
                     player.GetComponent<PlayerScript>().SetEnemy(enemyManagement.Enemy[0]);//攻撃対象の敵セット
                     onePush = true;
                     break;
-                case KeyCode.Alpha2://敵２
+                case "2"://敵２
                     if (enemyManagement.Enemy.Count >= 2)
                     {
                         if (oldSelectNumber != 1)
@@ -166,17 +159,17 @@ public class BattleSystemScript : MonoBehaviour
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
                         }
-                            oldSelectNumber = 1;
+                        oldSelectNumber = 1;
                         enemyWindow[1].color = ChooseColor;
                         enemy[1].color = ChooseColor;
                         if (oldSelectNumber == 1 && onePush == true)
                             battleState++;
-                            enemyManagement.Enemy[1].GetComponent<Enemy>().ChangeColor(true);
+                        enemyManagement.Enemy[1].GetComponent<Enemy>().ChangeColor(true);
                         player.GetComponent<PlayerScript>().SetEnemy(enemyManagement.Enemy[1]);
                         onePush = true;
                     }
                     break;
-                case KeyCode.Alpha3://敵３
+                case "3"://敵３
                     if (enemyManagement.Enemy.Count >= 3)
                     {
                         if (oldSelectNumber != 2)
@@ -184,7 +177,7 @@ public class BattleSystemScript : MonoBehaviour
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
                         }
-                            oldSelectNumber = 2;
+                        oldSelectNumber = 2;
                         enemyWindow[2].color = ChooseColor;
                         enemy[2].color = ChooseColor;
                         if (oldSelectNumber == 2 && onePush == true)
@@ -195,7 +188,7 @@ public class BattleSystemScript : MonoBehaviour
                     }
                     break;
 
-                case KeyCode.Alpha4://敵4
+                case "4"://敵4
                     if (enemyManagement.Enemy.Count >= 4)
                     {
                         if (oldSelectNumber != 3)
@@ -203,7 +196,7 @@ public class BattleSystemScript : MonoBehaviour
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
                         }
-                            oldSelectNumber = 3;
+                        oldSelectNumber = 3;
                         enemyWindow[2].color = ChooseColor;
                         enemy[2].color = ChooseColor;
                         if (oldSelectNumber == 3 && onePush == true)
@@ -214,7 +207,7 @@ public class BattleSystemScript : MonoBehaviour
                     }
                     break;
 
-                case KeyCode.Alpha5://敵5
+                case "5"://敵5
                     if (enemyManagement.Enemy.Count >= 5)
                     {
                         if (oldSelectNumber != 4)
@@ -222,7 +215,7 @@ public class BattleSystemScript : MonoBehaviour
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
                         }
-                            oldSelectNumber = 4;
+                        oldSelectNumber = 4;
                         enemyWindow[2].color = ChooseColor;
                         enemy[2].color = ChooseColor;
                         if (oldSelectNumber == 4 && onePush == true)
@@ -240,13 +233,13 @@ public class BattleSystemScript : MonoBehaviour
     //技ワード選択フェーズ
     private void ChooseWord()
     {
-        KeyCode inputNumber = KeyCheck();
+        string inputNumber = KeyCheck();
 
         if (Input.anyKeyDown)
         {
             switch (inputNumber)
             {
-                case KeyCode.Alpha1://技１
+                case "1"://技１
                     if (wordNum != 0)//前回と同じ入力じゃな無ければ
                         onePush = false;
                     StringBox = techniqueManagement.SelectTechniqueName(0);
@@ -254,11 +247,11 @@ public class BattleSystemScript : MonoBehaviour
                     {
                         onePush = false;
                         battleState++; //次のフェーズへ
-                    }            
+                    }
                     wordNum = 0;                        //再抽選用に選択した番号の保存
                     onePush = true;
                     break;
-                case KeyCode.Alpha2://技２
+                case "2"://技２
                     if (wordNum != 1)//前回と同じ入力じゃな無ければ
                         onePush = false;
                     if (onePush == true && wordNum == 1)
@@ -270,7 +263,7 @@ public class BattleSystemScript : MonoBehaviour
                     StringBox = techniqueManagement.SelectTechniqueName(1);
                     wordNum = 1;
                     break;
-                case KeyCode.Alpha3://技３
+                case "3"://技３
                     if (wordNum != 2)//前回と同じ入力じゃな無ければ
                         onePush = false;
                     StringBox = techniqueManagement.SelectTechniqueName(2);
@@ -284,18 +277,22 @@ public class BattleSystemScript : MonoBehaviour
                     break;
             }
             textBox[0].text = StringBox;
+            LogWindowScript.Text(StringBox);
         }
     }
 
     //キー入力フェーズ
     private void InputText()
     {
+
+
         //入力確認
         if (inputNum < StringBox.Length)
         {
             if (Input.anyKeyDown)
             {
-                if (Input.GetKeyDown(StringBox.Substring(inputNum, 1)/*i文字目から1文字分*/))
+                Debug.Log("inputNum" + inputNum);
+                if (KeyCheck() == (StringBox.Substring(inputNum, 1)/*i文字目から1文字分*/))
                 {
                     //テキストカラーを変えるならたぶんここ
                     Debug.Log("Good!");
@@ -340,7 +337,7 @@ public class BattleSystemScript : MonoBehaviour
             if (enemyManagement.Enemy.Count == 0)
                 battleState = BattleState.Interval;
             else
-            battleState = BattleState.ChooseWord;
+                battleState = BattleState.ChooseWord;
 
         }
     }

@@ -24,27 +24,27 @@ using UnityEngine;
 
         }
 
-    //s_Technique plus = new s_Technique("hp+=10", "体力に10を足す");//+=は変数名に入れれないので
-    //s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
-    //s_Technique loop = new s_Technique("while(true)", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
-    //s_Technique enemyUsing = new s_Technique("using enemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
-    //s_Technique small = new s_Technique("enemy-=10", "敵のHPから10引く");
-    //s_Technique division = new s_Technique("enemy/=2", "敵のHPを半分に割る");
-    //s_Technique constant = new s_Technique("const int", "敵に定数ダメージを与える");
-    //s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
-    //s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
-    //s_Technique release = new s_Technique("public", "全て公開する");
-
-    s_Technique plus = new s_Technique("hp10", "体力に10を足す");//+=は変数名に入れれないので
-    s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
-    s_Technique loop = new s_Technique("whiletrue", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
-    s_Technique enemyUsing = new s_Technique("usingenemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
-    s_Technique small = new s_Technique("enemy10", "敵のHPから10引く");
-    s_Technique division = new s_Technique("enemy2", "敵のHPを半分に割る");
-    s_Technique constant = new s_Technique("constint", "敵に定数ダメージを与える");
+    s_Technique plus = new s_Technique("HP+=10", "体力に10を足す");//+=は変数名に入れれないので
+    s_Technique comment = new s_Technique("//Comment", "次に受ける攻撃をコメントアウト");//　//入んないです
+    s_Technique loop = new s_Technique("While(true)", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
+    s_Technique enemyUsing = new s_Technique("using enemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
+    s_Technique small = new s_Technique("enemy-=10", "敵のHPから10引く");
+    s_Technique division = new s_Technique("enemy/=2", "敵のHPを半分に割る");
+    s_Technique constant = new s_Technique("const int", "敵に定数ダメージを与える");
     s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
     s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
     s_Technique release = new s_Technique("public", "全て公開する");
+
+    //s_Technique plus = new s_Technique("hp10", "体力に10を足す");//+=は変数名に入れれないので
+    //s_Technique comment = new s_Technique("//comment", "次に受ける攻撃をコメントアウト");//　//入んないです
+    //s_Technique loop = new s_Technique("whiletrue", "無限ループで敵に負担をかけ、遅くする");//whileは変数名にできないので
+    //s_Technique enemyUsing = new s_Technique("usingenemy", "敵を解析することにより、防御力を下げる");//using先だとエラーなので
+    //s_Technique small = new s_Technique("enemy10", "敵のHPから10引く");
+    //s_Technique division = new s_Technique("enemy2", "敵のHPを半分に割る");
+    //s_Technique constant = new s_Technique("constint", "敵に定数ダメージを与える");
+    //s_Technique pure = new s_Technique("true", "聖なる攻撃でダメージを与える");
+    //s_Technique fake = new s_Technique("false", "邪悪な攻撃でダメージを与える");
+    //s_Technique release = new s_Technique("public", "全て公開する");
 
     const int techniquNumber = 10;
 

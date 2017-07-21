@@ -1,9 +1,10 @@
 ﻿<Properties StartupItem="ProgrammingBattle.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BattleSystemScript.cs">
     <Files>
       <File FileName="Assets\Scripts\LoadingScript.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BattleSystemScript.cs" Line="117" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
