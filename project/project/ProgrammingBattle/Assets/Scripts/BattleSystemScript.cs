@@ -69,7 +69,7 @@ public class BattleSystemScript : MonoBehaviour
     {
 
         // battleState = BattleState.ChooseWord;
-        battleState = BattleState.Interval;
+        battleState = BattleState.ChooseWord;
         enemyManagement = new EnemyManagement();
         textManagement = new TextManagement();
         techniqueManagement = new TechniqueManagement();
@@ -131,13 +131,15 @@ public class BattleSystemScript : MonoBehaviour
     private void ChooseEnemy()
     {
         String inputNumber = KeyCheck();
-
+        
         if (Input.anyKeyDown)
         {
+
+            Debug.Log("inputNumber="+inputNumber);
             switch (inputNumber)
             {
                 case "1"://敵１
-                    if (oldSelectNumber != 0)//色を元に戻す
+                    if (oldSelectNumber != 0&&oldSelectNumber!=99)//色を元に戻す
                     {
                         enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                         onePush = false;
@@ -154,7 +156,7 @@ public class BattleSystemScript : MonoBehaviour
                 case "2"://敵２
                     if (enemyManagement.Enemy.Count >= 2)
                     {
-                        if (oldSelectNumber != 1)
+                        if (oldSelectNumber != 1 && oldSelectNumber != 99)
                         {
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
@@ -172,7 +174,7 @@ public class BattleSystemScript : MonoBehaviour
                 case "3"://敵３
                     if (enemyManagement.Enemy.Count >= 3)
                     {
-                        if (oldSelectNumber != 2)
+                        if (oldSelectNumber != 2 && oldSelectNumber != 99)
                         {
                             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
                             onePush = false;
@@ -313,7 +315,8 @@ public class BattleSystemScript : MonoBehaviour
             //敵のHPを減らす（いったん今はただ一定攻撃するだけで技による対応などはしてないです。       
             //倒す前に色を元に戻しとく
             enemyManagement.Enemy[oldSelectNumber].GetComponent<Enemy>().ChangeColor(false);
-            player.GetComponent<PlayerScript>().Attack();
+            oldSelectNumber = 99;//エネミーセレクトで戻されないように
+            player.GetComponent<PlayerScript>().TechniqueSuccess(techniqueManagement.selectTechnique);
 
             //使い終わった技はリストから削除
             techniqueManagement.DeleteTechnique(wordNum);

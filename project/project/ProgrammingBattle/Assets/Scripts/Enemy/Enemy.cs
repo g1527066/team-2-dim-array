@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
 
         //すべて適当です
         hp = 1;
-        attack = 3;
+        attack = 1;
         attackInterval = 7f;
         elapsedTime = 0f;
         enemyName = "敵の名前";
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Attacked(int attacked)//攻撃を受けたとき
+    public void Attacked(int attacked)//固定攻撃を受けたとき
     {
         hp -= attacked;
         Debug.Log("enemyHP=" + hp);
@@ -82,6 +82,44 @@ public class Enemy : MonoBehaviour
             go.GetComponent<BattleSystemScript>().GetEnemyManagement.DeleteEnemy(this.gameObject);//悪い参照の仕方
         }
     }
+
+    public void AttributeAttacked(int attacked,bool istrue)//属性攻撃を受けたとき  flag=属性がtrueならtrue
+    {
+        hp -= attacked;
+        Debug.Log("enemyHP=" + hp);
+        if (hp <= 0)//オブジェクト削除
+        {
+            gameObject.SetActive(false);
+            SpriteRenderer.Destroy(this, 0f);
+            Destroy(this, 0);
+            GameObject go = GameObject.Find("SystemObject");
+            go.GetComponent<BattleSystemScript>().GetEnemyManagement.DeleteEnemy(this.gameObject);//悪い参照の仕方
+        }
+    }
+
+    //固定ダメージ
+    public void ConstAttacked(int attacked)//const の場合のみ変える
+    {
+        hp -= attacked;
+        Debug.Log("enemyHP=" + hp);
+        if (hp <= 0)//オブジェクト削除
+        {
+            gameObject.SetActive(false);
+            SpriteRenderer.Destroy(this, 0f);
+            Destroy(this, 0);
+            GameObject go = GameObject.Find("SystemObject");
+            go.GetComponent<BattleSystemScript>().GetEnemyManagement.DeleteEnemy(this.gameObject);//悪い参照の仕方
+        }
+    }
+
+
+    //  /2をくらったとき
+    public void TechniqueDivision()
+    {
+        hp /= 2;
+    }
+
+
 
     //セレクト状態で色を変化します
     public void ChangeColor(bool isSelect)//falseなら元の色に戻します。

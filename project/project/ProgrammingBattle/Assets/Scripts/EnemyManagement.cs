@@ -52,7 +52,7 @@ public class EnemyManagement
         {
             case 1:
                 enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[2]));
-                enemy.Add(Generation((GameObject)Resources.Load("2DObject/kariEnemy"), enemyPosition[3]));
+                enemy.Add(Generation((GameObject)Resources.Load("2DObject/EnemyBreak"), enemyPosition[3]));
                 Debug.Log("エネミーの数"+enemy.Count);
 
                 break;
